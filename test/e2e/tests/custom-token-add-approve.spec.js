@@ -23,7 +23,7 @@ describe('Create token, approve token and approve token without gas', function (
       await withFixtures(
         {
           dapp: true,
-          fixtures: 'imported-account',
+          fixtures: 'connected-state',
           ganacheOptions,
           title: this.test.title,
         },
@@ -32,8 +32,9 @@ describe('Create token, approve token and approve token without gas', function (
           await driver.fill('#password', 'correct horse battery staple');
           await driver.press('#password', driver.Key.ENTER);
 
-          await connectDappWithExtensionPopup(driver);
+         // await connectDappWithExtensionPopup(driver);
           // create token
+          await driver.openNewPage(`http://127.0.0.1:8080/`);
           await driver.waitForSelector({ text: 'Create Token', tag: 'button' });
           await driver.clickElement({ text: 'Create Token', tag: 'button' });
 
@@ -71,17 +72,15 @@ describe('Create token, approve token and approve token without gas', function (
           await driver.fill('#custom-address', tokenAddress);
           await driver.waitForSelector('#custom-symbol');
           await driver.waitForSelector('#custom-decimals');
-          const addButton = await driver.findClickableElement({
+          await driver.clickElement({
             text: 'Add Custom Token',
             tag: 'button',
           });
-          addButton.click();
 
-          const importButton = await driver.findClickableElement({
+          await driver.clickElement({
             text: 'Import Tokens',
             tag: 'button',
           });
-          importButton.click();
 
           // renders balance for newly created token
           await driver.waitForSelector('.app-header__logo-container');
@@ -113,7 +112,7 @@ describe('Create token, approve token and approve token without gas', function (
       await withFixtures(
         {
           dapp: true,
-          fixtures: 'imported-account',
+          fixtures: 'connected-state',
           ganacheOptions,
           title: this.test.title,
         },
@@ -122,7 +121,7 @@ describe('Create token, approve token and approve token without gas', function (
           await driver.fill('#password', 'correct horse battery staple');
           await driver.press('#password', driver.Key.ENTER);
 
-          await connectDappWithExtensionPopup(driver);
+          await driver.openNewPage(`http://127.0.0.1:8080/`);
 
           await driver.waitForSelector({ text: 'Create Token', tag: 'button' });
           await driver.clickElement({ text: 'Create Token', tag: 'button' });
@@ -188,7 +187,7 @@ describe('Create token, approve token and approve token without gas', function (
       await withFixtures(
         {
           dapp: true,
-          fixtures: 'imported-account',
+          fixtures: 'connected-state',
           ganacheOptions,
           title: this.test.title,
         },
@@ -197,7 +196,7 @@ describe('Create token, approve token and approve token without gas', function (
           await driver.fill('#password', 'correct horse battery staple');
           await driver.press('#password', driver.Key.ENTER);
 
-          await connectDappWithExtensionPopup(driver);
+          await driver.openNewPage(`http://127.0.0.1:8080/`);
 
           await driver.waitForSelector({ text: 'Create Token', tag: 'button' });
           await driver.clickElement({ text: 'Create Token', tag: 'button' });
@@ -304,7 +303,7 @@ describe('Create token, approve token and approve token without gas', function (
       await withFixtures(
         {
           dapp: true,
-          fixtures: 'imported-account',
+          fixtures: 'connected-state',
           ganacheOptions,
           title: this.test.title,
         },
@@ -313,7 +312,7 @@ describe('Create token, approve token and approve token without gas', function (
           await driver.fill('#password', 'correct horse battery staple');
           await driver.press('#password', driver.Key.ENTER);
 
-          await connectDappWithExtensionPopup(driver);
+          await driver.openNewPage(`http://127.0.0.1:8080/`);
 
           await driver.waitForSelector({ text: 'Create Token', tag: 'button' });
           await driver.clickElement({ text: 'Create Token', tag: 'button' });
