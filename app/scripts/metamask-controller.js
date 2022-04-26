@@ -653,6 +653,7 @@ export default class MetamaskController extends EventEmitter {
         `${this.permissionController.name}:hasPermissions`,
         `${this.permissionController.name}:requestPermissions`,
         `${this.permissionController.name}:revokeAllPermissions`,
+        `${this.permissionController.name}:revokePermissionForAllSubjects`,
       ],
     });
 
@@ -673,6 +674,7 @@ export default class MetamaskController extends EventEmitter {
       closeAllConnections: this.removeAllConnections.bind(this),
       state: initState.SnapController,
       messenger: snapControllerMessenger,
+      window: window.fetch.bind(window),
     });
 
     this.rateLimitController = new RateLimitController({
@@ -1082,6 +1084,9 @@ export default class MetamaskController extends EventEmitter {
             null,
           ),
         getMnemonic: this.getPrimaryKeyringMnemonic.bind(this),
+        getUnlockPromise: this.appStateController.getUnlockPromise.bind(
+          this.appStateController,
+        ),
         getSnap: this.controllerMessenger.call.bind(
           this.controllerMessenger,
           'SnapController:get',
@@ -3517,6 +3522,10 @@ export default class MetamaskController extends EventEmitter {
 
           return Object.values(approvedPermissions);
         },
+        getPermissions: this.permissionController.getPermissions.bind(
+          this.permissionController,
+          origin,
+        ),
         getAccounts: this.getPermittedAccounts.bind(this, origin),
         installSnaps: this.snapController.installSnaps.bind(
           this.snapController,
