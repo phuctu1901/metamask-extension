@@ -3,7 +3,6 @@ const { strict: assert } = require('assert');
 const {
   convertToHexValue,
   withFixtures,
-  connectDappWithExtensionPopup,
   getWindowHandles,
 } = require('../helpers');
 
@@ -32,7 +31,7 @@ describe('Create token, approve token and approve token without gas', function (
           await driver.fill('#password', 'correct horse battery staple');
           await driver.press('#password', driver.Key.ENTER);
 
-         // await connectDappWithExtensionPopup(driver);
+          // await connectDappWithExtensionPopup(driver);
           // create token
           await driver.openNewPage(`http://127.0.0.1:8080/`);
           await driver.waitForSelector({ text: 'Create Token', tag: 'button' });
@@ -257,7 +256,8 @@ describe('Create token, approve token and approve token without gas', function (
           const radioButtons = await driver.findClickableElements(
             '.edit-approval-permission__edit-section__radio-button',
           );
-          await radioButtons[1].click();
+          const customSpendLimit = await radioButtons[1];
+          await customSpendLimit.click();
           await driver.fill('input', '5');
           await driver.clickElement({ text: 'Save', tag: 'button' });
 
